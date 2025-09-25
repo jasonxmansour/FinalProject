@@ -1125,11 +1125,10 @@ public final class GroceryBag implements Comparable<GroceryBag>
      */
     private boolean hasCapacity( final GroceryItem candidateItem )
         {
-
-        // TODO implement this - do the test(s) in the return statement
-
-        return true ;   // STUB value - delete this comment
-
+        if ((this.remainingSpaceAvailable >= candidateItem.size.sizeValue) && (this.remainingWeightAvailable >= candidateItem.weight.weightValue)) {
+            return true;
+        }
+        return false;
         }   // end hasCapacity()
 
 
@@ -1229,5 +1228,6 @@ public final class GroceryBag implements Comparable<GroceryBag>
         System.out.printf( "testBag.equals(null): %b%n", testBag.equals( null ) ) ;
 
         }	// end main()
+
 
     }   // end class GroceryBag
