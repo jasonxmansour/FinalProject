@@ -222,7 +222,7 @@ public final class GroceryBag implements Comparable<GroceryBag>
             }
 
         accountForAddedItem( newItem ) ;
-
+        
         return true ;   // successfully added the grocery item
 
         }   // end add()
@@ -285,15 +285,15 @@ public final class GroceryBag implements Comparable<GroceryBag>
 
         // rule 1:
 
-        if((bag.hasBreakableItems() && candidateItem.isHeavy)||(bag.hasHeavy() && candidateItem.isBreakable))
-        {
-        	return false;
-        }
+        if((hasBreakableItems() && candidateItem.isHeavy) || (hasHeavyItems() && candidateItem.isBreakable))
+            {
+                return false;
+            }
 
         // rule 2:
 
         
-        if((bag.hasPerishable() && !candidateItem.isPerishable)||(!bag.hasPerishable() && candidateItem.isPerishable))
+        if((hasPerishableItems() && !candidateItem.isPerishable)||(!hasPerishableItems() && candidateItem.isPerishable))
         {
         	return false;
         }
@@ -301,7 +301,7 @@ public final class GroceryBag implements Comparable<GroceryBag>
         // rule 3:
 
         
-        if((bag.hasHard() && candidateItem.isSoft)||(bag.hasSoft() && candidateItem.isHard))
+        if((hasHardItems() && candidateItem.isSoft)||(hasSoftItems() && candidateItem.isHard))
         {
         	return false;
         }
@@ -310,7 +310,7 @@ public final class GroceryBag implements Comparable<GroceryBag>
         // rule 4:
 
         
-        if((bag.hasLarge() && candidateItem.isSmall)||(bag.hasSmall() && candidateItem.isLarge))
+        if((hasLargeItems() && candidateItem.isSmall)||(hasSmallItems() && candidateItem.isLarge))
         {
         	return false;
         }
@@ -318,7 +318,7 @@ public final class GroceryBag implements Comparable<GroceryBag>
         // rule 5:
 
         
-        if((bag.hasRigid() && candidateItem.isSoft)||(bag.hasSoft() && candidateItem.isRigid))
+        if((hasRigidItems() && candidateItem.isSoft)||(hasSoftItems() && candidateItem.isRigid))
         {
         	return false;
         }
@@ -349,7 +349,7 @@ public final class GroceryBag implements Comparable<GroceryBag>
 
         // hasCapacity() implicitly tests for full
         return hasCapacity( candidateItem ) && areCompatible( candidateItem ) ;
-
+        
         }   // end canAddItem()
 
 
@@ -972,7 +972,7 @@ public final class GroceryBag implements Comparable<GroceryBag>
         // capacity fields
 
         // TODO adjust remaining space and weight counters
-
+        this.remainingWeightAvailable -= newItem.weight.weightValue ;
 
         // compatibility fields
 
@@ -1067,14 +1067,12 @@ public final class GroceryBag implements Comparable<GroceryBag>
      */
     private boolean hasCapacity( final GroceryItem candidateItem )
         {
-
-        // TODO implement this - do the test(s) in the return statement
-
-        return true ;   // STUB value - delete this comment
-
+        if ((this.remainingSpaceAvailable >= candidateItem.size.sizeValue) && (this.remainingWeightAvailable >= candidateItem.weight.weightValue)) {
+            return true;
+        }
+        return false;
         }   // end hasCapacity()
-
-
+   
     /**
      * set all counters and limits to reflect an empty grocery bag
      * <p>
