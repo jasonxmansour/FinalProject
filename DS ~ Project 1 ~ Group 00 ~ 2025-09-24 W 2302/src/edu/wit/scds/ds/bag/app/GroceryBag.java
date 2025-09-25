@@ -285,7 +285,7 @@ public final class GroceryBag implements Comparable<GroceryBag>
 
         // rule 1:
 
-        if((bag.hasBreakableItems() && candidateItem.isHeavy)||(bag.hasHeavy() && candidateItem.isBreakable))
+        if((hasBreakableItems() && candidateItem.isHeavy)||(hasHeavy() && candidateItem.isBreakable))
         {
         	return false;
         }
@@ -293,7 +293,7 @@ public final class GroceryBag implements Comparable<GroceryBag>
         // rule 2:
 
         
-        if((bag.hasPerishable() && !candidateItem.isPerishable)||(!bag.hasPerishable() && candidateItem.isPerishable))
+        if((hasPerishableItems() && !candidateItem.isPerishable)||(!hasPerishableItems() && candidateItem.isPerishable))
         {
         	return false;
         }
@@ -971,27 +971,56 @@ public final class GroceryBag implements Comparable<GroceryBag>
 
         // capacity fields
 
-        // TODO adjust remaining space and weight counters
-
+    	this.remainingSpaceAvailable--;
+    	this.remainingWeightAvailable -= newItem.weight.weightValue;
 
         // compatibility fields
 
-        // TODO adjust breakability, perishability, and rigidity counters
-
+    	if(newItem.isRigid)
+    	{
+    		this.rigidItemCount++;
+    	}
+    	if(newItem.isPerishable)
+    	{
+    		this.perishableItemCount++;
+    	}
+    	if(newItem.isBreakable)
+    	{
+    		this.breakableItemCount++;
+    	}
+    	
 
         // sizes
 
-        // TODO adjust small and large counters
+        if(newItem.isSmall) {
+        	this.smallItemCount++;
+        }
+        else
+        {
+        	this.largeItemCount++;
+        }
 
 
         // weights
 
-        // TODO adjust light and heavy counters
+        if(newItem.isHeavy) {
+        	this.heavyItemCount++;
+        }
+        else
+        {
+        	this.lightItemCount++;
+        }
 
 
         // firmnesses
 
-        // TODO adjust soft and hard counters
+        if(newItem.isHard) {
+        	this.hardItemCount++;
+        }
+        else
+        {
+        	this.softItemCount++;
+        }
 
         }   // end accountForAddedItem()
 
@@ -1010,27 +1039,56 @@ public final class GroceryBag implements Comparable<GroceryBag>
 
         // capacity fields
 
-        // TODO adjust remaining space and weight counters
-
+    	this.remainingSpaceAvailable++;
+    	this.remainingWeightAvailable += removedItem.weight.weightValue;
 
         // compatibility fields
 
-        // TODO adjust breakability, perishability, and rigidity counters
-
+    	if(removedItem.isRigid)
+    	{
+    		this.rigidItemCount--;
+    	}
+    	if(removedItem.isPerishable)
+    	{
+    		this.perishableItemCount--;
+    	}
+    	if(removedItem.isBreakable)
+    	{
+    		this.breakableItemCount--;
+    	}
+    	
 
         // sizes
 
-        // TODO adjust small and large counters
+        if(removedItem.isSmall) {
+        	this.smallItemCount--;
+        }
+        else
+        {
+        	this.largeItemCount--;
+        }
 
 
         // weights
 
-        // TODO adjust light and heavy counters
+        if(removed.isHeavy) {
+        	this.heavyItemCount--;
+        }
+        else
+        {
+        	this.lightItemCount--;
+        }
 
 
         // firmnesses
 
-        // TODO adjust soft and hard counters
+        if(removedItem.isHard) {
+        	this.hardItemCount--;
+        }
+        else
+        {
+        	this.softItemCount--;
+        }
 
         }   // end accountForRemovedItem()
 
