@@ -170,6 +170,8 @@ public final class BagIt
             
             // TODO implement this - set baggedIn to reference the bag which accepted the item
             // TODO baggingArea is iterable so use an enhanced for/foreach loop
+            
+            for(GroceryBag bags : )
 
 
             
