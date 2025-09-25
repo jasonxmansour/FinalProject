@@ -285,28 +285,43 @@ public final class GroceryBag implements Comparable<GroceryBag>
 
         // rule 1:
 
-        // TODO implement this
-
+        if((bag.hasBreakableItems() && candidateItem.isHeavy)||(bag.hasHeavy() && candidateItem.isBreakable))
+        {
+        	return false;
+        }
 
         // rule 2:
 
-        // TODO implement this
-
+        
+        if((bag.hasPerishable() && !candidateItem.isPerishable)||(!bag.hasPerishable() && candidateItem.isPerishable))
+        {
+        	return false;
+        }
 
         // rule 3:
 
-        // TODO implement this
+        
+        if((bag.hasHard() && candidateItem.isSoft)||(bag.hasSoft() && candidateItem.isHard))
+        {
+        	return false;
+        }
 
 
         // rule 4:
 
-        // TODO implement this
-
+        
+        if((bag.hasLarge() && candidateItem.isSmall)||(bag.hasSmall() && candidateItem.isLarge))
+        {
+        	return false;
+        }
 
         // rule 5:
 
-        // TODO implement this
-
+        
+        if((bag.hasRigid() && candidateItem.isSoft)||(bag.hasSoft() && candidateItem.isRigid))
+        {
+        	return false;
+        }
 
         // NOTE do not modify the rest of this method
 
@@ -694,9 +709,9 @@ public final class GroceryBag implements Comparable<GroceryBag>
 
         checkIntegrity() ;
 
-        // TODO implement this - do all the work in a single return statement
+       
 
-        return false ;  // STUB value - delete this comment
+        return this.remainingSpaceAvailable == 0;  
 
         }   // end isFull()
 
